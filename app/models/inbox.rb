@@ -43,6 +43,7 @@ class Inbox < ApplicationRecord
   include Avatarable
   include OutOfOffisable
   include AccountCacheRevalidator
+  include EvolutionDeletable
 
   # Not allowing characters:
   validates :name, presence: true

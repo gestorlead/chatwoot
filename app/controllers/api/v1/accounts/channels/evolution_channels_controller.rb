@@ -7,6 +7,9 @@ class Api::V1::Accounts::Channels::EvolutionChannelsController < Api::V1::Accoun
     params = permitted_params(channel_type_from_params::EDITABLE_ATTRS)[:channel].except(:type)
     evolution_api_url = ENV.fetch('EVOLUTION_API_URL', params[:webhook_url])
     evolution_api_key = ENV.fetch('EVOLUTION_API_KEY', params[:api_key])
+    ignore_groups = params[:ignoreGroups].nil? ? true : params[:ignoreGroups]
+    sign_messages = params[:signMessages].nil? ? true : params[:signMessages]
+    reopen_conversations = params[:reopenConversations].nil? ? false : params[:reopenConversations]
 
     return render json: { error: 'Evolution API URL is missing' }, status: :unprocessable_entity if evolution_api_url.nil?
 
@@ -22,7 +25,8 @@ class Api::V1::Accounts::Channels::EvolutionChannelsController < Api::V1::Accoun
       )
 
       Evolution::ManagerService.new.create(@inbox.account_id, permitted_params[:name], evolution_api_url,
-                                           evolution_api_key, @user.access_token.token)
+                                           evolution_api_key, @user.access_token.token,
+                                           ignore_groups, sign_messages, reopen_conversations)
       @inbox.save!
     end
 
@@ -44,7 +48,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelsController < Api::V1::Accoun
   def create_channel(webhook_url)
     return unless %w[api whatsapp].include?(permitted_params[:channel][:type])
 
-    params = permitted_params(channel_type_from_params::EDITABLE_ATTRS)[:channel].except(:type, :api_key)
+    params = permitted_params(channel_type_from_params::EDITABLE_ATTRS)[:channel].except(:type, :api_key, :ignoreGroups, :signMessages, :reopenConversations)
     params[:webhook_url] = "#{webhook_url}/chatwoot/webhook/#{permitted_params[:name]}"
     account_channels_method.create!(params)
   end
@@ -59,7 +63,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelsController < Api::V1::Accoun
 
     params.permit(
       *inbox_attributes,
-      channel: [:type, :api_key, *channel_attributes]
+      channel: [:type, :api_key, :ignoreGroups, :signMessages, :reopenConversations, *channel_attributes]
     )
   end
 

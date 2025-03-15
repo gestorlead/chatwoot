@@ -215,7 +215,7 @@
           "TWILIO": "Twilio",
           "WHATSAPP_CLOUD": "Cloud do WhatsApp",
           "360_DIALOG": "360Dialog",
-          "EVOLUTION": "Evolution API"
+          "EVOLUTION": "WhatsApp Business"
         },
         "INBOX_NAME": {
           "LABEL": "Nome da Caixa de Entrada",
@@ -224,8 +224,13 @@
         },
         "PHONE_NUMBER": {
           "LABEL": "Número de telefone",
-          "PLACEHOLDER": "Por favor, insira o número de telefone do qual a mensagem será enviada.",
-          "ERROR": "Por favor, forneça um número de telefone válido que comece com o símbolo \"+\" e não contém quaisquer espaços."
+          "PLACEHOLDER": "Por favor, digite o número de telefone conectado a esta conta.",
+          "ERROR": "O número de telefone deve começar com um '+' e conter apenas números"
+        },
+        "SETTINGS": {
+          "IGNORE_GROUPS": "Ignorar mensagens de grupos",
+          "SIGN_MESSAGES": "Assinar mensagens enviadas",
+          "REOPEN_CONVERSATIONS": "Reabrir conversas ao receber nova mensagem"
         },
         "PHONE_NUMBER_ID": {
           "LABEL": "ID do número de telefone",
@@ -278,20 +283,17 @@
         }
       },
       "EVOLUTION": {
-        "WEBHOOK_URL": {
-          "LABEL": "URL do Webhook",
-          "SUBTITLE": "Configure a URL onde você deseja receber retornos de chamada em eventos.",
-          "PLACEHOLDER": "URL do Webhook",
-          "ERROR": "Por favor, insira um valor válido."
-        },
+        "TITLE": "Integração WhatsApp Business",
+        "LABEL": "URL do WhatsApp Business",
+        "PLACEHOLDER": "https://wa.example.com",
         "API_KEY": {
-          "LABEL": "Chave da API",
-          "SUBTITLE": "Configure a chave API da Evolution.",
-          "PLACEHOLDER": "Chave da API",
-          "ERROR": "Por favor, insira um valor válido."
+          "LABEL": "Chave API",
+          "PLACEHOLDER": "Chave API"
         },
-        "API": {
-          "ERROR_MESSAGE": "Não foi possível salvar o canal de API"
+        "SUBTITLE": "Configure a chave API do WhatsApp Business.",
+        "API_CALLBACK": {
+          "TITLE": "URL de Callback",
+          "SUBTITLE": "Você deve configurar a URL do webhook para esta URL na API Evolution."
         }
       },
       "EMAIL_CHANNEL": {

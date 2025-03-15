@@ -13,6 +13,9 @@ export default {
   data() {
     return {
       phoneNumber: '',
+      ignoreGroups: true,
+      signMessages: true,
+      reopenConversations: false,
     };
   },
   computed: {
@@ -35,6 +38,9 @@ export default {
             name: this.phoneNumber.replace(/\D/g, ''),
             channel: {
               type: 'api',
+              ignoreGroups: this.ignoreGroups,
+              signMessages: this.signMessages,
+              reopenConversations: this.reopenConversations,
             },
           }
         );
@@ -72,6 +78,32 @@ export default {
         </span>
       </label>
     </div>
+    
+    <div class="w-full mt-3">
+      <h4 class="text-base font-medium mb-2">{{ $t('INBOX_MGMT.SETTINGS') }}</h4>
+      
+      <div class="mb-2">
+        <woot-toggle-button
+          v-model="ignoreGroups"
+          :label="$t('INBOX_MGMT.ADD.WHATSAPP.SETTINGS.IGNORE_GROUPS')"
+        />
+      </div>
+      
+      <div class="mb-2">
+        <woot-toggle-button
+          v-model="signMessages"
+          :label="$t('INBOX_MGMT.ADD.WHATSAPP.SETTINGS.SIGN_MESSAGES')"
+        />
+      </div>
+      
+      <div class="mb-4">
+        <woot-toggle-button
+          v-model="reopenConversations"
+          :label="$t('INBOX_MGMT.ADD.WHATSAPP.SETTINGS.REOPEN_CONVERSATIONS')"
+        />
+      </div>
+    </div>
+    
     <div class="w-full">
       <woot-submit-button
         :loading="uiFlags.isCreating"
